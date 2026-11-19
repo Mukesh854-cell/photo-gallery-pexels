@@ -19,17 +19,25 @@ async function photosFunc() {
     console.log(data.results[0].urls.small);
     console.log(data.results[0].user.first_name);
 
+    // data.results.forEach((photo) => {
+    //     const cardDiv = document.createElement('div');
+    //     cardDiv.classList.add('card');
+    //     const imgDiv = document.createElement('img');
+    //     imgDiv.src = photo.urls.small;
+    //     const paraName = document.createElement('p');
+    //     paraName.textContent = photo.user.first_name;
+    //     cardDiv.appendChild(imgDiv);
+    //     cardDiv.appendChild(paraName);
+    //     gridDiv.appendChild(cardDiv);
+    // });
+
     data.results.forEach((photo) => {
-        const cardDiv = document.createElement('div');
-        cardDiv.classList.add('card');
-        const imgDiv = document.createElement('img');
-        imgDiv.src = photo.urls.small;
-        const paraName = document.createElement('p');
-        paraName.textContent = photo.user.first_name;
-        cardDiv.appendChild(imgDiv);
-        cardDiv.appendChild(paraName);
-        gridDiv.appendChild(cardDiv);
-    });
+        gridDiv.innerHTML += `
+        <div class="card">
+            <img src="${photo.urls.small}">
+            <p>${photo.user.first_name}</p>
+        </div>`
+    })
 }
 
 photosFunc();
