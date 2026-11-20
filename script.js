@@ -2,17 +2,25 @@ const textBox = document.querySelector('.text-box');
 const searchBtn = document.querySelector('.search');
 const gridDiv = document.querySelector('.grid');
 
-console.log(gridDiv);
+searchBtn.addEventListener('click', () => {
+    const trimmedTextBox = textBox.value.trim();
+    if (trimmedTextBox === '') {
+        console.log('Type something');
+    } else {
+        gridDiv.innerHTML = '';
+        photosFunc(trimmedTextBox);
+    }
+    textBox.value = '';
+})
 
-async function photosFunc() {
-    let query = 'nature';
+async function photosFunc(query) {
     let perPage = 12;
     let page = 1;
     let url = `https://api.unsplash.com/search/photos?query=${query}&per_page=${perPage}&page=${page}`;
     console.log(url);
-    
+
     const response = await fetch(url, {
-        headers: {Authorization: `Client-ID ${API_KEY}`}
+        headers: { Authorization: `Client-ID ${API_KEY}` }
     });
     console.log(response.status);
     const data = await response.json();
@@ -34,10 +42,8 @@ async function photosFunc() {
     data.results.forEach((photo) => {
         gridDiv.innerHTML += `
         <div class="card">
-            <img src="${photo.urls.small}">
+            <img src="${photo.urls.small}" loading="lazy">
             <p>${photo.user.first_name}</p>
         </div>`
     })
 }
-
-photosFunc();
