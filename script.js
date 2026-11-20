@@ -1,6 +1,7 @@
 const textBox = document.querySelector('.text-box');
 const searchBtn = document.querySelector('.search');
 const gridDiv = document.querySelector('.grid');
+const spinner = document.querySelector('.spinner');
 
 searchBtn.addEventListener('click', () => {
     const trimmedTextBox = textBox.value.trim();
@@ -14,6 +15,7 @@ searchBtn.addEventListener('click', () => {
 })
 
 async function photosFunc(query) {
+    spinner.classList.remove('hidden');
     let perPage = 12;
     let page = 1;
     let url = `https://api.unsplash.com/search/photos?query=${query}&per_page=${perPage}&page=${page}`;
@@ -46,4 +48,5 @@ async function photosFunc(query) {
             <p>${photo.user.first_name}</p>
         </div>`
     })
+    spinner.classList.add('hidden');
 }

@@ -45,6 +45,30 @@ body {
     cursor: pointer;
 }
 
+.spinner {
+    height: 50px;
+    width: 50px;
+    border: 3px solid rgb(192, 184, 184);
+    border-radius: 50%;
+    border-top: 3px solid rgb(63, 63, 63);
+    animation: round 1s linear infinite;
+    margin: 50px auto;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes round {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
