@@ -24,38 +24,29 @@ async function photosFunc(query) {
     console.log(url);
 
     try {
-
         const response = await fetch(url, {
             headers: { Authorization: `Client-ID ${API_KEY}` }
         });
         console.log(response.status);
         const data = await response.json();
 
-        // data.results.forEach((photo) => {
-        //     const cardDiv = document.createElement('div');
-        //     cardDiv.classList.add('card');
-        //     const imgDiv = document.createElement('img');
-        //     imgDiv.src = photo.urls.small;
-        //     const paraName = document.createElement('p');
-        //     paraName.textContent = photo.user.first_name;
-        //     cardDiv.appendChild(imgDiv);
-        //     cardDiv.appendChild(paraName);
-        //     gridDiv.appendChild(cardDiv);
-        // });
-
-        data.results.forEach((photo) => {
-            gridDiv.innerHTML += `
-        <div class="card">
-            <img src="${photo.urls.small}" loading="lazy">
-            <p>${photo.user.first_name}</p>
-        </div>`
-        })
+        if (data.results.length === 0) {
+            messagePara.classList.remove('hidden');
+            messagePara.textContent = 'No photos found. Try another word.';
+        } else {
+            data.results.forEach((photo) => {
+                gridDiv.innerHTML += `
+                <div class="card">
+                    <img src="${photo.urls.small}" loading="lazy">
+                    <p>${photo.user.first_name}</p>
+                </div>`
+            })
+        }
         spinner.classList.add('hidden');
 
     } catch (error) {
         messagePara.classList.remove('hidden');
         spinner.classList.add('hidden');
         messagePara.textContent = 'Something went wrong. Please try again.';
-
     }
 }
